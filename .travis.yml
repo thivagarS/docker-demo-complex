@@ -1,0 +1,22 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t thivagars/client -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true thivagars/client npm test -- --coverage # to exit react test with status of 0 if succeed bcoz react test will not exit by default
+
+after_success:
+  - docker build -t thivagars/multi-client ./client
+  - docker build -t thivagars/multi-nginx ./nginx
+  - docker build -t thivagars/multi-server ./server
+  - docker build -t thivagars/multi-worker ./worker
+  # Login in to the docker cli
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push thivagars/multi-client
+  - docker push thivagars/multi-nginx
+  - docker push thivagars/multi-server
+  - docker push thivagars/multi-worker
