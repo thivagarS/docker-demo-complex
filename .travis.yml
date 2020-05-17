@@ -21,16 +21,17 @@ after_success:
   - docker push thivagars/multi-server
   - docker push thivagars/multi-worker
 
-deploy:
-  provider: elasticbeanstalk 
-  region: us-west-1 # region in aws
-  app: multi-docker # app name
-  env: MultiDocker-env  # app end
-  bucket_name: elasticbeanstalk-us-west-1-306476627547 # S3 bucket name
-  bucket_path: docker-multi # S3 bucket path
-  on:
-    branch: master # start deployement when committed on master branch
-  access_key_id: $AWS_ACCESS_KEY # AWS User access key
-  secret_access_key:
-    secure: $AWS_SECRET_KEY 
-  # secret_access_key: $AWS_SECRET_KEY # if above syntax is not working, Secret key for AWS user
+# Commented deloy block
+# deploy:
+#   provider: elasticbeanstalk 
+#   region: us-west-1 # region in aws
+#   app: multi-docker # app name
+#   env: MultiDocker-env  # app end
+#   bucket_name: elasticbeanstalk-us-west-1-306476627547 # S3 bucket name
+#   bucket_path: docker-multi # S3 bucket path
+#   on:
+#     branch: master # start deployement when committed on master branch
+#   access_key_id: $AWS_ACCESS_KEY # AWS User access key
+#   secret_access_key:
+#     secure: $AWS_SECRET_KEY 
+#   # secret_access_key: $AWS_SECRET_KEY # if above syntax is not working, Secret key for AWS user
